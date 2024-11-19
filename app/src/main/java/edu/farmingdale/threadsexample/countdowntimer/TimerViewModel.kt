@@ -67,6 +67,14 @@ class TimerViewModel : ViewModel() {
             remainingMillis = 0
         }
     }
+//To reset timer
+    fun resetTimer() {
+        cancelTimer()
+        selectedHour = 0
+        selectedMinute = 0
+        selectedSecond = 0
+        remainingMillis = 0L
+    }
 
     override fun onCleared() {
         super.onCleared()

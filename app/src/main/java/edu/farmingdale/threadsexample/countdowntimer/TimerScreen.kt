@@ -52,7 +52,7 @@ fun TimerScreen(
             }
             Text(
                 text = timerText(timerViewModel.remainingMillis),
-                fontSize = 40.sp,
+                fontSize = 60.sp,
             )
         }
         TimePicker(
@@ -79,9 +79,15 @@ fun TimerScreen(
                 Text("Start")
             }
         }
+        // To reset timer todo 6
+        Button(
+            onClick = timerViewModel::resetTimer,
+            modifier = modifier.padding(16.dp)
+        ) {
+            Text("Reset")
+        }
     }
 }
-
 
 
 fun timerText(timeInMillis: Long): String {
