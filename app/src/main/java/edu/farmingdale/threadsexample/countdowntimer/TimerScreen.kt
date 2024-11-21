@@ -1,10 +1,6 @@
 package edu.farmingdale.threadsexample.countdowntimer
 
-import android.util.Log
 import android.widget.NumberPicker
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,19 +9,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -34,7 +27,6 @@ import java.text.DecimalFormat
 import java.util.Locale
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
-
 @Composable
 fun TimerScreen(
     modifier: Modifier = Modifier,
@@ -50,17 +42,26 @@ fun TimerScreen(
             if (timerViewModel.isRunning) {
 
             }
+
+            // Check if time left is last ten secs
+            val lastTen = timerViewModel.remainingMillis <= 10_000L
+
+            // Make text bold and red todo 8
             Text(
                 text = timerText(timerViewModel.remainingMillis),
-                fontSize = 60.sp,
+                fontSize = 59.sp,
+                color = if (lastTen) Color.Red else Color.Black,
+                fontWeight = if (lastTen) FontWeight.Bold else FontWeight.Normal
             )
         }
+
         TimePicker(
             hour = timerViewModel.selectedHour,
             min = timerViewModel.selectedMinute,
             sec = timerViewModel.selectedSecond,
             onTimePick = timerViewModel::selectTime
         )
+
         if (timerViewModel.isRunning) {
             Button(
                 onClick = timerViewModel::cancelTimer,
@@ -79,7 +80,8 @@ fun TimerScreen(
                 Text("Start")
             }
         }
-        // To reset timer todo 6
+
+        // Reset button todo 6
         Button(
             onClick = timerViewModel::resetTimer,
             modifier = modifier.padding(16.dp)
