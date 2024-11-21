@@ -1,5 +1,7 @@
 package edu.farmingdale.threadsexample.countdowntimer
 
+import android.media.RingtoneManager
+import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
@@ -56,6 +58,7 @@ class TimerViewModel : ViewModel() {
                 }
 
                 isRunning = false
+                //playRingtone()
             }
         }
     }
@@ -77,9 +80,20 @@ class TimerViewModel : ViewModel() {
         remainingMillis = 0L
     }
 
+    /*private fun playRingtone() {
+        val notification: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        ringtone = RingtoneManager.getRingtone(context, notification)
+        ringtone?.play()
+    }
 
+    private fun stopRingtone() {
+        val ringtone
+        ringtone?.stop()
+    }
+*/
     override fun onCleared() {
         super.onCleared()
         timerJob?.cancel()
+       // stopRingtone()
     }
 }
