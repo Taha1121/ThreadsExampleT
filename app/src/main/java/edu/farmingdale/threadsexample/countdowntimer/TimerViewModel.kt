@@ -60,6 +60,7 @@ class TimerViewModel : ViewModel() {
         }
     }
 
+
     fun cancelTimer() {
         if (isRunning) {
             timerJob?.cancel()
@@ -75,6 +76,7 @@ class TimerViewModel : ViewModel() {
         selectedSecond = 0
         remainingMillis = 0L
     }
+
 
     override fun onCleared() {
         super.onCleared()
